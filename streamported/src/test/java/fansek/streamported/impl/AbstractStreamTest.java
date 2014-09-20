@@ -221,4 +221,51 @@ public class AbstractStreamTest {
 		});
 		assertThat(result.size(), equalTo(3));
 	}
+
+	@Test
+	public void complexTestOnNonEmptyStream() {
+		String result = nonEmptyStream
+				.filter(not(equalsTo(2)))
+				.map(new Function<Integer, Traversable<Integer>>() {
+					@Override
+					public Traversable<Integer> apply(final Integer t) {
+						return new Traversable<Integer>() {
+							@Override
+							public void forEach(Consumer<? super Integer> consumer) {
+								consumer.accept(t);
+								consumer.accept(t);
+								consumer.accept(t);
+							}
+						};
+					}
+				})
+				.flatMap(new Function<Traversable<Integer>, Traversable<Integer>>() {
+					@Override
+					public Traversable<Integer> apply(Traversable<Integer> t) {
+						return t;
+					}
+				})
+				.accumulate(new Accumulator<Integer, String>() {
+					@Override
+					public void accept(Integer t, Consumer<? super String> resultConsumer) {
+						if (t < 2) {
+							resultConsumer.accept("t < 2");
+						}
+					}
+				})
+				.reduce(new Function<Traversable<String>, String>() {
+					@Override
+					public String apply(Traversable<String> t) {
+						final StringBuilder sb = new StringBuilder();
+						t.forEach(new Consumer<String>() {
+							@Override
+							public void accept(String str) {
+								sb.append(str);
+							}
+						});
+						return sb.toString();
+					}
+				});
+		assertThat(result, equalTo("t < 2t < 2t < 2"));
+	}
 }
