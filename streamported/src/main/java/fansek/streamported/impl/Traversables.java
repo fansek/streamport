@@ -13,7 +13,12 @@ public class Traversables {
 		return new DefaultTraversable<>(iterable);
 	}
 
-	public static <T> Iterable<T> toIterable(final Traversable<T> traversable) {
+	@SafeVarargs
+	public static <T> Traversable<T> fromArray(final T... ts) {
+		return new ArrayTraversable<>(ts);
+	}
+
+	public static <T> Iterable<T> toIterable(Traversable<T> traversable) {
 		Objects.requireNonNull(traversable);
 		DefaultIterableAccumulator<T> iterableAccumulator;
 		iterableAccumulator = new DefaultIterableAccumulator<T>();
@@ -21,9 +26,15 @@ public class Traversables {
 		return iterableAccumulator.getIterable();
 	}
 
-	public static <T> Stream<T> toStream(final Traversable<T> traversable) {
+	public static <T> Stream<T> toStream(Traversable<T> traversable) {
 		Objects.requireNonNull(traversable);
 		return new DefaultStream<>(traversable);
+	}
+
+	@SafeVarargs
+	public static <T> Stream<T> toStream(T... ts) {
+		Objects.requireNonNull(ts);
+		return new DefaultStream<>(new ArrayTraversable<>(ts));
 	}
 
 	public static <T> Stream<T> toStream(final Iterable<T> iterable) {
@@ -33,9 +44,10 @@ public class Traversables {
 	}
 
 	static class DefaultStream<T> extends AbstractStream<T> {
-		final Traversable<T> traversable;
+		private final Traversable<T> traversable;
 
 		public DefaultStream(Traversable<T> traversable) {
+			Objects.requireNonNull(traversable);
 			this.traversable = traversable;
 		}
 
@@ -61,6 +73,23 @@ public class Traversables {
 		}
 	}
 
+	static class ArrayTraversable<T> implements Traversable<T> {
+		private final T[] ts;
+
+		@SafeVarargs
+		public ArrayTraversable(T... ts) {
+			Objects.requireNonNull(ts);
+			this.ts = ts;
+		}
+
+		@Override
+		public void forEach(Consumer<? super T> consumer) {
+			for (T t : ts) {
+				consumer.accept(t);
+			}
+		}
+	}
+
 	static class DefaultIterableAccumulator<T> implements Consumer<T> {
 		private final LinkedList<T> iterable = new LinkedList<>();
 
@@ -69,7 +98,7 @@ public class Traversables {
 			iterable.add(t);
 		}
 
-		public LinkedList<T> getIterable() {
+		public Iterable<T> getIterable() {
 			return iterable;
 		}
 	}
