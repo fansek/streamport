@@ -1,8 +1,8 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
 import java.util.Objects;
 
-import fansek.streamported.Predicate;
+import fansek.streamport.Predicate;
 
 public class Predicates {
 	public static final Predicate<Object> TAUTOLOGY = new Predicate<Object>() {

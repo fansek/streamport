@@ -1,13 +1,13 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
 import java.util.Objects;
 
-import fansek.streamported.Accumulator;
-import fansek.streamported.Consumer;
-import fansek.streamported.Function;
-import fansek.streamported.Predicate;
-import fansek.streamported.Stream;
-import fansek.streamported.Traversable;
+import fansek.streamport.Accumulator;
+import fansek.streamport.Consumer;
+import fansek.streamport.Function;
+import fansek.streamport.Predicate;
+import fansek.streamport.Stream;
+import fansek.streamport.Traversable;
 
 public abstract class AbstractStream<T> implements Stream<T> {
 	@Override

@@ -1,6 +1,6 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
-import fansek.streamported.Consumer;
+import fansek.streamport.Consumer;
 
 abstract class UpConsumer<T, R> implements Consumer<T> {
 	final Consumer<? super R> resultConsumer;

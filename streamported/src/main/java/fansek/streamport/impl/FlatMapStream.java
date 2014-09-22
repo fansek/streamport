@@ -1,9 +1,9 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
-import fansek.streamported.Consumer;
-import fansek.streamported.Function;
-import fansek.streamported.Stream;
-import fansek.streamported.Traversable;
+import fansek.streamport.Consumer;
+import fansek.streamport.Function;
+import fansek.streamport.Stream;
+import fansek.streamport.Traversable;
 
 class FlatMapStream<T, R> extends DownStream<T, R> {
 	final Function<? super T, ? extends Traversable<? extends R>> mapper;

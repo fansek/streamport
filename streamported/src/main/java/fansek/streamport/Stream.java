@@ -1,4 +1,4 @@
-package fansek.streamported;
+package fansek.streamport;
 
 public interface Stream<T> extends Traversable<T> {
 	Stream<T> filter(Predicate<? super T> predicate);

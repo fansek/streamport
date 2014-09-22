@@ -1,4 +1,4 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -9,9 +9,10 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import fansek.streamported.Consumer;
-import fansek.streamported.Stream;
-import fansek.streamported.Traversable;
+import fansek.streamport.Consumer;
+import fansek.streamport.Stream;
+import fansek.streamport.Traversable;
+import fansek.streamport.impl.Traversables;
 
 public class TraversablesTest {
 

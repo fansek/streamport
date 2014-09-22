@@ -1,4 +1,4 @@
 /**
- * API for streamported.
+ * API for streamport.
  */
-package fansek.streamported;
+package fansek.streamport;

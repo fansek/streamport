@@ -1,8 +1,8 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
-import fansek.streamported.Consumer;
-import fansek.streamported.Function;
-import fansek.streamported.Stream;
+import fansek.streamport.Consumer;
+import fansek.streamport.Function;
+import fansek.streamport.Stream;
 
 class MapStream<T, R> extends DownStream<T, R> {
 	final Function<? super T, ? extends R> mapper;

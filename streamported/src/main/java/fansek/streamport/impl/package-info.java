@@ -1,4 +1,4 @@
 /**
- * Implementation classes for streamported.
+ * Implementation classes for streamport.
  */
-package fansek.streamported.impl;
+package fansek.streamport.impl;

@@ -1,4 +1,4 @@
-package fansek.streamported;
+package fansek.streamport;
 
 public interface Predicate<T> {
 	boolean test(T t);

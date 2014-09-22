@@ -1,8 +1,8 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
-import fansek.streamported.Consumer;
-import fansek.streamported.Predicate;
-import fansek.streamported.Stream;
+import fansek.streamport.Consumer;
+import fansek.streamport.Predicate;
+import fansek.streamport.Stream;
 
 class FilterStream<T> extends DownStream<T, T> {
 	final Predicate<? super T> predicate;

@@ -1,8 +1,8 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
-import fansek.streamported.Accumulator;
-import fansek.streamported.Consumer;
-import fansek.streamported.Stream;
+import fansek.streamport.Accumulator;
+import fansek.streamport.Consumer;
+import fansek.streamport.Stream;
 
 class AccumulatorStream<T, R> extends DownStream<T, R> {
 	final Accumulator<? super T, ? extends R> accumulator;

@@ -1,7 +1,7 @@
-package fansek.streamported.impl;
+package fansek.streamport.impl;
 
-import fansek.streamported.Consumer;
-import fansek.streamported.Stream;
+import fansek.streamport.Consumer;
+import fansek.streamport.Stream;
 
 abstract class DownStream<T, R> extends AbstractStream<R> {
 	final Stream<T> upStream;

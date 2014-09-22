@@ -1,4 +1,4 @@
-package fansek.streamported;
+package fansek.streamport;
 
 public interface Function<T, R> {
 	R apply(T t);
