@@ -28,7 +28,10 @@ class FlatMapStream<T, R> extends DownStream<T, R> {
 
 		@Override
 		public void accept(T t) {
-			mapper.apply(t).forEach(resultConsumer);
+			Traversable<? extends R> traversable = mapper.apply(t);
+			if (traversable != null) {
+				traversable.forEach(resultConsumer);
+			}
 		}
 	}
 }
