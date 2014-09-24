@@ -1,5 +1,7 @@
 package fansek.streamport.impl;
 
+import java.util.Objects;
+
 import fansek.streamport.Accumulator;
 import fansek.streamport.Consumer;
 import fansek.streamport.Stream;
@@ -9,6 +11,7 @@ class AccumulatorStream<T, R> extends DownStream<T, R> {
 
 	AccumulatorStream(Stream<T> upStream, Accumulator<? super T, ? extends R> accumulator) {
 		super(upStream);
+		Objects.requireNonNull(accumulator);
 		this.accumulator = accumulator;
 	}
 

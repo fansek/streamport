@@ -1,5 +1,7 @@
 package fansek.streamport.impl;
 
+import java.util.Objects;
+
 import fansek.streamport.Consumer;
 import fansek.streamport.Predicate;
 import fansek.streamport.Stream;
@@ -9,6 +11,7 @@ class FilterStream<T> extends DownStream<T, T> {
 
 	FilterStream(Stream<T> upStream, Predicate<? super T> predicate) {
 		super(upStream);
+		Objects.requireNonNull(predicate);
 		this.predicate = predicate;
 	}
 

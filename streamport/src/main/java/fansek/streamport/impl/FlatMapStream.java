@@ -1,5 +1,7 @@
 package fansek.streamport.impl;
 
+import java.util.Objects;
+
 import fansek.streamport.Consumer;
 import fansek.streamport.Function;
 import fansek.streamport.Stream;
@@ -10,6 +12,7 @@ class FlatMapStream<T, R> extends DownStream<T, R> {
 
 	FlatMapStream(Stream<T> upStream, Function<? super T, ? extends Traversable<? extends R>> mapper) {
 		super(upStream);
+		Objects.requireNonNull(mapper);
 		this.mapper = mapper;
 	}
 

@@ -1,7 +1,5 @@
 package fansek.streamport.impl;
 
-import java.util.Objects;
-
 import fansek.streamport.Accumulator;
 import fansek.streamport.Consumer;
 import fansek.streamport.Function;
@@ -15,25 +13,21 @@ public abstract class AbstractStream<T> implements Stream<T> {
 
 	@Override
 	public Stream<T> filter(final Predicate<? super T> predicate) {
-		Objects.requireNonNull(predicate);
-		return new FilterStream<T>(this, predicate);
+		return new FilterStream<>(this, predicate);
 	}
 
 	@Override
 	public <R> Stream<R> map(Function<? super T, ? extends R> mapper) {
-		Objects.requireNonNull(mapper);
-		return new MapStream<T, R>(this, mapper);
+		return new MapStream<>(this, mapper);
 	}
 
 	@Override
 	public <R> Stream<R> flatMap(Function<? super T, ? extends Traversable<? extends R>> mapper) {
-		Objects.requireNonNull(mapper);
 		return new FlatMapStream<>(this, mapper);
 	}
 
 	@Override
 	public <R> Stream<R> accumulate(Accumulator<? super T, ? extends R> accumulator) {
-		Objects.requireNonNull(accumulator);
 		return new AccumulatorStream<>(this, accumulator);
 	}
 
