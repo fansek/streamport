@@ -30,10 +30,4 @@ public abstract class AbstractStream<T> implements Stream<T> {
 	public <R> Stream<R> accumulate(Accumulator<? super T, ? extends R> accumulator) {
 		return new AccumulatorStream<>(this, accumulator);
 	}
-
-	@Override
-	public <G> G reduce(Function<Traversable<T>, G> reduction) {
-		Objects.requireNonNull(reduction);
-		return reduction.apply(this);
-	}
 }

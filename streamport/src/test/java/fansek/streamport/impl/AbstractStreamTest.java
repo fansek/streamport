@@ -10,7 +10,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -200,32 +199,10 @@ public class AbstractStreamTest {
 		});
 	}
 
-	@Test(expected = NullPointerException.class)
-	public void testReduceCallWithNull() {
-		nonEmptyStream.reduce(null);
-	}
-
-	@Test
-	public void testReduceCallWithNonEmptyStream() {
-		List<Integer> result = nonEmptyStream.reduce(new Function<Traversable<Integer>, List<Integer>>() {
-			@Override
-			public List<Integer> apply(Traversable<Integer> traversable) {
-				final LinkedList<Integer> resultList = new LinkedList<>();
-				traversable.forEach(new Consumer<Integer>() {
-					@Override
-					public void accept(Integer t) {
-						resultList.add(t);
-					}
-				});
-				return resultList;
-			}
-		});
-		assertThat(result.size(), equalTo(3));
-	}
-
 	@Test
 	public void complexTestOnNonEmptyStream() {
-		String result = nonEmptyStream
+		final StringBuilder sb = new StringBuilder();
+		nonEmptyStream
 				.filter(not(equalsTo(2)))
 				.map(new Function<Integer, Traversable<Integer>>() {
 					@Override
@@ -254,19 +231,12 @@ public class AbstractStreamTest {
 						}
 					}
 				})
-				.reduce(new Function<Traversable<String>, String>() {
+				.forEach(new Consumer<String>() {
 					@Override
-					public String apply(Traversable<String> t) {
-						final StringBuilder sb = new StringBuilder();
-						t.forEach(new Consumer<String>() {
-							@Override
-							public void accept(String str) {
-								sb.append(str);
-							}
-						});
-						return sb.toString();
+					public void accept(String str) {
+						sb.append(str);
 					}
 				});
-		assertThat(result, equalTo("t < 2t < 2t < 2"));
+		assertThat(sb.toString(), equalTo("t < 2t < 2t < 2"));
 	}
 }
