@@ -1,4 +1,4 @@
-package fansek.streamport.impl;
+package fansek.streamport.support;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -6,6 +6,7 @@ import java.util.Objects;
 import fansek.streamport.Consumer;
 import fansek.streamport.Stream;
 import fansek.streamport.Traversable;
+import fansek.streamport.impl.AbstractStream;
 
 public class Traversables {
 

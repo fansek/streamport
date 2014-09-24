@@ -12,7 +12,7 @@ import org.junit.Test;
 import fansek.streamport.Consumer;
 import fansek.streamport.Stream;
 import fansek.streamport.Traversable;
-import fansek.streamport.impl.Traversables;
+import fansek.streamport.support.Traversables;
 
 public class TraversablesTest {
 

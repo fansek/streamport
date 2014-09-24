@@ -1,8 +1,8 @@
 package fansek.streamport.impl;
 
-import static fansek.streamport.impl.Predicates.TAUTOLOGY;
-import static fansek.streamport.impl.Predicates.equalsTo;
-import static fansek.streamport.impl.Predicates.not;
+import static fansek.streamport.support.Predicates.TAUTOLOGY;
+import static fansek.streamport.support.Predicates.equalsTo;
+import static fansek.streamport.support.Predicates.not;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -20,7 +20,7 @@ import fansek.streamport.Consumer;
 import fansek.streamport.Function;
 import fansek.streamport.Stream;
 import fansek.streamport.Traversable;
-import fansek.streamport.impl.Traversables;
+import fansek.streamport.support.Traversables;
 
 public class AbstractStreamTest {
 	Stream<Integer> nonEmptyStream;
