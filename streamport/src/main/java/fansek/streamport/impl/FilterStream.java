@@ -11,8 +11,7 @@ class FilterStream<T> extends DownStream<T, T> {
 
 	FilterStream(Stream<T> upStream, Predicate<? super T> predicate) {
 		super(upStream);
-		Objects.requireNonNull(predicate);
-		this.predicate = predicate;
+		this.predicate = Objects.requireNonNull(predicate);
 	}
 
 	@Override

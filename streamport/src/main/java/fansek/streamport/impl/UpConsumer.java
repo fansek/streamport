@@ -8,7 +8,6 @@ abstract class UpConsumer<T, R> implements Consumer<T> {
 	final Consumer<? super R> resultConsumer;
 
 	UpConsumer(Consumer<? super R> resultConsumer) {
-		Objects.requireNonNull(resultConsumer);
-		this.resultConsumer = resultConsumer;
+		this.resultConsumer = Objects.requireNonNull(resultConsumer);
 	}
 }

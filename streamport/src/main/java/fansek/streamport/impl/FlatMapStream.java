@@ -12,8 +12,7 @@ class FlatMapStream<T, R> extends DownStream<T, R> {
 
 	FlatMapStream(Stream<T> upStream, Function<? super T, ? extends Traversable<? extends R>> mapper) {
 		super(upStream);
-		Objects.requireNonNull(mapper);
-		this.mapper = mapper;
+		this.mapper = Objects.requireNonNull(mapper);
 	}
 
 	@Override

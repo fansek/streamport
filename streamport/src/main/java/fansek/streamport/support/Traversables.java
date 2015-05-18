@@ -28,18 +28,15 @@ public class Traversables {
 	}
 
 	public static <T> Stream<T> toStream(Traversable<T> traversable) {
-		Objects.requireNonNull(traversable);
 		return new DefaultStream<>(traversable);
 	}
 
 	@SafeVarargs
 	public static <T> Stream<T> toStream(T... ts) {
-		Objects.requireNonNull(ts);
 		return new DefaultStream<>(new ArrayTraversable<>(ts));
 	}
 
 	public static <T> Stream<T> toStream(final Iterable<T> iterable) {
-		Objects.requireNonNull(iterable);
 		Traversable<T> traversable = fromIterable(iterable);
 		return toStream(traversable);
 	}
@@ -48,8 +45,7 @@ public class Traversables {
 		private final Traversable<T> traversable;
 
 		public DefaultStream(Traversable<T> traversable) {
-			Objects.requireNonNull(traversable);
-			this.traversable = traversable;
+			this.traversable = Objects.requireNonNull(traversable);
 		}
 
 		@Override
@@ -62,8 +58,7 @@ public class Traversables {
 		private final Iterable<T> iterable;
 
 		public DefaultTraversable(Iterable<T> iterable) {
-			Objects.requireNonNull(iterable);
-			this.iterable = iterable;
+			this.iterable = Objects.requireNonNull(iterable);
 		}
 
 		@Override
@@ -79,8 +74,7 @@ public class Traversables {
 
 		@SafeVarargs
 		public ArrayTraversable(T... ts) {
-			Objects.requireNonNull(ts);
-			this.ts = ts;
+			this.ts = Objects.requireNonNull(ts);
 		}
 
 		@Override

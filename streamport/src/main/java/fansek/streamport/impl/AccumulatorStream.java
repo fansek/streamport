@@ -11,8 +11,7 @@ class AccumulatorStream<T, R> extends DownStream<T, R> {
 
 	AccumulatorStream(Stream<T> upStream, Accumulator<? super T, ? extends R> accumulator) {
 		super(upStream);
-		Objects.requireNonNull(accumulator);
-		this.accumulator = accumulator;
+		this.accumulator = Objects.requireNonNull(accumulator);
 	}
 
 	@Override

@@ -9,8 +9,7 @@ abstract class DownStream<T, R> extends AbstractStream<R> {
 	final Stream<T> upStream;
 
 	public DownStream(Stream<T> upStream) {
-		Objects.requireNonNull(upStream);
-		this.upStream = upStream;
+		this.upStream = Objects.requireNonNull(upStream);
 	}
 
 	@Override

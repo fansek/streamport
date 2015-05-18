@@ -37,8 +37,7 @@ public class Predicates {
 		private final Predicate<Object> predicate;
 
 		public NegationPredicate(Predicate<Object> predicate) {
-			Objects.requireNonNull(predicate);
-			this.predicate = predicate;
+			this.predicate = Objects.requireNonNull(predicate);
 		}
 
 		@Override
