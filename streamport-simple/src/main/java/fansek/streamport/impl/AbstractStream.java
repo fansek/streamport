@@ -60,7 +60,10 @@ public abstract class AbstractStream<T> implements Stream<T> {
 						new Consumer<T>() {
 							@Override
 							public void accept(T t) {
-								mapper.apply(t).forEach(resultConsumer);
+								Traversable<? extends R> traversable = mapper.apply(t);
+								if (traversable != null) {
+									traversable.forEach(resultConsumer);
+								}
 							}
 						});
 			}

@@ -19,6 +19,7 @@ import fansek.streamport.Consumer;
 import fansek.streamport.Function;
 import fansek.streamport.Stream;
 import fansek.streamport.Traversable;
+import fansek.streamport.support.Streams;
 import fansek.streamport.support.Traversables;
 
 public class AbstractStreamTest {
@@ -27,8 +28,8 @@ public class AbstractStreamTest {
 
 	@Before
 	public void init() {
-		nonEmptyStream = Traversables.toStream(1, 2, 3);
-		emptyStream = Traversables.toStream();
+		nonEmptyStream = Streams.create(1, 2, 3);
+		emptyStream = Streams.create();
 	}
 
 	@Test(expected = NullPointerException.class)
@@ -126,7 +127,7 @@ public class AbstractStreamTest {
 		Stream<?> resultStream = nonEmptyStream.flatMap(new Function<Object, Traversable<Integer>>() {
 			@Override
 			public Traversable<Integer> apply(Object t) {
-				return Traversables.fromArray(1, 2);
+				return Traversables.create(1, 2);
 			}
 		});
 		final LinkedList<Integer> resultList =

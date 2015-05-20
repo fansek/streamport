@@ -4,18 +4,16 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import fansek.streamport.Consumer;
-import fansek.streamport.Stream;
 import fansek.streamport.Traversable;
-import fansek.streamport.impl.AbstractStream;
 
 public class Traversables {
 
-	public static <T> Traversable<T> fromIterable(final Iterable<T> iterable) {
+	public static <T> Traversable<T> create(final Iterable<T> iterable) {
 		return new DefaultTraversable<>(iterable);
 	}
 
 	@SafeVarargs
-	public static <T> Traversable<T> fromArray(final T... ts) {
+	public static <T> Traversable<T> create(final T... ts) {
 		return new ArrayTraversable<>(ts);
 	}
 
@@ -25,33 +23,6 @@ public class Traversables {
 		iterableAccumulator = new DefaultIterableAccumulator<T>();
 		traversable.forEach(iterableAccumulator);
 		return iterableAccumulator.getIterable();
-	}
-
-	public static <T> Stream<T> toStream(Traversable<T> traversable) {
-		return new DefaultStream<>(traversable);
-	}
-
-	@SafeVarargs
-	public static <T> Stream<T> toStream(T... ts) {
-		return new DefaultStream<>(new ArrayTraversable<>(ts));
-	}
-
-	public static <T> Stream<T> toStream(final Iterable<T> iterable) {
-		Traversable<T> traversable = fromIterable(iterable);
-		return toStream(traversable);
-	}
-
-	static class DefaultStream<T> extends AbstractStream<T> {
-		private final Traversable<T> traversable;
-
-		public DefaultStream(Traversable<T> traversable) {
-			this.traversable = Objects.requireNonNull(traversable);
-		}
-
-		@Override
-		public void forEach(Consumer<? super T> consumer) {
-			traversable.forEach(consumer);
-		}
 	}
 
 	static class DefaultTraversable<T> implements Traversable<T> {

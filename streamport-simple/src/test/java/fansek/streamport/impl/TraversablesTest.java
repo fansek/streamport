@@ -1,7 +1,10 @@
 package fansek.streamport.impl;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,25 +13,31 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import fansek.streamport.Consumer;
-import fansek.streamport.Stream;
 import fansek.streamport.Traversable;
 import fansek.streamport.support.Traversables;
 
 public class TraversablesTest {
 
 	@Test(expected = NullPointerException.class)
-	public void testFromIterableCallWithNull() {
-		Traversables.fromIterable(null);
+	public void testCreateFromIterableWithNull() {
+		Iterable<?> iterable = null;
+		Traversables.create(iterable);
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testCreateFromArrayWithNull() {
+		Object[] array = null;
+		Traversables.create(array);
 	}
 
 	@Test
-	public void testFromIterableCallWithNonEmptyIterable() {
+	public void testCreateWithNonEmptyIterable() {
 		LinkedList<Object> sourceList = new LinkedList<>();
 		sourceList.add(1);
 		sourceList.add(2);
 		final LinkedList<Object> resultList = new LinkedList<>(sourceList);
 
-		Traversables.fromIterable(sourceList)
+		Traversables.create(sourceList)
 				.forEach(new Consumer<Object>() {
 					@Override
 					public void accept(Object object) {
@@ -39,8 +48,8 @@ public class TraversablesTest {
 	}
 
 	@Test
-	public void testFromIterableCallWithEmptyIterable() {
-		Traversables.fromIterable(new LinkedList<>())
+	public void testCreateWithEmptyIterable() {
+		Traversables.create(new LinkedList<>())
 				.forEach(new Consumer<Object>() {
 					@Override
 					public void accept(Object object) {
@@ -50,12 +59,12 @@ public class TraversablesTest {
 	}
 
 	@Test(expected = NullPointerException.class)
-	public void testToIterableCallWithNull() {
+	public void testToIterableWithNull() {
 		Traversables.toIterable(null);
 	}
 
 	@Test
-	public void testToIterableCallWithNonEmptyTraversable() {
+	public void testToIterableWithNonEmptyTraversable() {
 		Iterable<Object> iterable = Traversables.toIterable(new Traversable<Object>() {
 			@Override
 			public void forEach(Consumer<? super Object> consumer) {
@@ -72,7 +81,7 @@ public class TraversablesTest {
 	}
 
 	@Test(expected = NoSuchElementException.class)
-	public void testToIterableCallWithEmptyTraversable() {
+	public void testToIterableWithEmptyTraversable() {
 		Iterable<Object> iterable = Traversables.toIterable(new Traversable<Object>() {
 			@Override
 			public void forEach(Consumer<? super Object> consumer) {
@@ -80,87 +89,5 @@ public class TraversablesTest {
 		});
 		Iterator<Object> iterator = iterable.iterator();
 		iterator.next();
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testToStreamCallWithNullTraversable() {
-		Traversable<?> traversable = null;
-		Traversables.toStream(traversable);
-	}
-
-	@Test
-	public void testToStreamCallWithNonEmptyTraversable() {
-		final LinkedList<Object> sourceList = new LinkedList<>();
-		sourceList.add(1);
-		sourceList.add(2);
-		final LinkedList<Object> resultList = new LinkedList<>(sourceList);
-
-		Stream<Object> stream = Traversables.toStream(new Traversable<Object>() {
-			@Override
-			public void forEach(Consumer<? super Object> consumer) {
-				for (Object element : sourceList) {
-					consumer.accept(element);
-				}
-			}
-		});
-
-		stream.forEach(new Consumer<Object>() {
-			@Override
-			public void accept(Object object) {
-				assertTrue(resultList.remove(object));
-			}
-		});
-		assertThat(resultList.size(), equalTo(0));
-	}
-
-	@Test
-	public void testToStreamCallWithEmptyTraversable() {
-		Stream<Object> stream = Traversables.toStream(new Traversable<Object>() {
-			@Override
-			public void forEach(Consumer<? super Object> consumer) {
-			}
-		});
-
-		stream.forEach(new Consumer<Object>() {
-			@Override
-			public void accept(Object object) {
-				fail("Stream should be empty.");
-			}
-		});
-	}
-
-	@Test(expected = NullPointerException.class)
-	public void testToStreamCallWithNullIterable() {
-		Iterable<?> iterable = null;
-		Traversables.toStream(iterable);
-	}
-
-	@Test
-	public void testToStreamCallWithNonEmptyIterable() {
-		final LinkedList<Object> sourceList = new LinkedList<>();
-		sourceList.add(1);
-		sourceList.add(2);
-		final LinkedList<Object> resultList = new LinkedList<>(sourceList);
-
-		Stream<Object> stream = Traversables.toStream(sourceList);
-
-		stream.forEach(new Consumer<Object>() {
-			@Override
-			public void accept(Object object) {
-				assertTrue(resultList.remove(object));
-			}
-		});
-		assertThat(resultList.size(), equalTo(0));
-	}
-
-	@Test
-	public void testToStreamCallWithEmptyIterable() {
-		Stream<Object> stream = Traversables.toStream(new LinkedList<>());
-		stream.forEach(new Consumer<Object>() {
-			@Override
-			public void accept(Object object) {
-				fail("Stream should be empty.");
-			}
-		});
 	}
 }
